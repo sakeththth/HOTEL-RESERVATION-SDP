@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+{% block title %}Secure Your Evening | Ember & Ivory{% endblock %}
+
+{% block content %}
+<div class="animate-in" style="max-width: 600px; margin: 0 auto;">
+
+  <div style="text-align: center; margin-bottom: 50px;">
+    <h2 style="font-size: 2.5rem; margin-bottom: 10px;">Book a Table.</h2>
+    <p style="text-transform: uppercase; font-size: 0.75rem; letter-spacing: 3px; color: var(--text-muted);">
+      Please fill in your details below
+    </p>
+  </div>
+
+  <div class="glass-card">
+    {% if success %}
+    <div class="alert success">{{ success }}</div>
+    {% endif %}
+
+    {% if error %}
+    <div class="alert error">{{ error }}</div>
+    {% endif %}
+
+    <form method="POST">
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-bottom: 30px;">
+        <div>
+          <label for="date">Date of Booking</label>
+          <input type="date" name="date" id="date" class="form-input" required min="{{ today }}"
+            style="color-scheme: dark;">
+        </div>
+        <div>
+          <label for="guests">No. of People</label>
+          <input type="number" name="guests" id="guests" class="form-input" min="1" placeholder="Number of guests"
+            required>
+        </div>
+      </div>
+
+      <div style="margin-bottom: 40px;">
+        <label for="slot">Time Slot</label>
+        <select name="slot" id="slot" class="form-input" required style="background: var(--surface);">
+          <option value="" disabled selected>Select an arrival window</option>
+          {% for slot in slots %}
+          <option value="{{ slot }}" {% if slot not in available_slots %}disabled{% endif %}>
+            {{ slot }} {% if slot not in available_slots %}— fully committed{% endif %}
+          </option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <div style="text-align: center;">
+        <button type="submit" class="primary-btn" style="width: 100%;">
+          Book Table
+        </button>
+      </div>
+    </form>
+  </div>
+
+  <div class="animate-in"
+    style="margin-top: 60px; text-align: center; padding: 40px; border: 1px solid var(--border); background: rgba(0,0,0,0.2);">
+    <h3 style="font-size: 1.2rem; margin-bottom: 20px; color: var(--gold);">Restaurant Layout</h3>
+    <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 30px; letter-spacing: 1px;">OUR TABLE
+      ARRANGEMENT</p>
+
+    <div style="position: relative; display: inline-block;">
+      <img src="{{ url_for('static', filename='layout.png') }}" alt="Table Layout"
+        style="width: 100%; max-width: 500px; filter: grayscale(1) contrast(1.2) opacity(0.8); transition: filter 0.5s;">
+      <div
+        style="position: absolute; top:0; left:0; width:100%; height:100%; background: linear-gradient(to bottom, transparent, rgba(10,10,10,0.4)); pointer-events: none;">
+      </div>
+    </div>
+
+    <p style="margin-top: 25px; font-size: 0.85rem; color: var(--text-muted); font-style: italic;">
+      "We assign tables based on party size and optimal room flow to ensure the most elegant experience for all guests."
+    </p>
+  </div>
+</div>
+{% endblock %}

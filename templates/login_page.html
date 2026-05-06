@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% block title %}Member Access | Ember & Ivory{% endblock %}
+
+{% block content %}
+<div class="animate-in" style="max-width: 450px; margin: 10% auto;">
+
+  <div style="text-align: center; margin-bottom: 40px;">
+    <h2 style="font-size: 2.2rem; margin-bottom: 10px;">Login</h2>
+    <p style="text-transform: uppercase; font-size: 0.75rem; letter-spacing: 2px; color: var(--text-muted);">
+      Sign in to manage your reservations
+    </p>
+  </div>
+
+  <div class="glass-card">
+    {% if error %}
+    <div class="alert error">{{ error }}</div>
+    {% endif %}
+
+    <form method="POST">
+      <div style="margin-bottom: 30px;">
+        <label for="email">Email Address</label>
+        <input type="email" name="email" id="email" class="form-input" placeholder="e.g. guest@emberandivory.com"
+          required>
+      </div>
+
+      <div style="margin-bottom: 40px;">
+        <label for="password">Password</label>
+        <input type="password" name="password" id="password" class="form-input" placeholder="••••••••" required>
+      </div>
+
+      <div style="text-align: center;">
+        <button type="submit" class="primary-btn" style="width: 100%;">
+          Login
+        </button>
+      </div>
+    </form>
+
+    <div style="margin-top: 30px; text-align: center; border-top: 1px solid var(--border); padding-top: 25px;">
+      <p style="font-size: 0.85rem; color: var(--text-muted);">
+        New to Ember & Ivory?
+        <a href="/signup" style="color: var(--gold); text-decoration: none; font-weight: 500;">Request Membership</a>
+      </p>
+    </div>
+  </div>
+
+  <div style="margin-top: 40px; text-align: center;">
+    <i data-lucide="shield-check" style="width: 20px; color: var(--gold); opacity: 0.5;"></i>
+    <p
+      style="font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-top: 10px;">
+      Secure Encrypted Access
+    </p>
+  </div>
+</div>
+{% endblock %}

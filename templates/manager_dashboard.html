@@ -1,0 +1,104 @@
+{% extends "base.html" %}
+{% block title %}Admin Control | Ember & Ivory{% endblock %}
+
+{% block content %}
+<div class="animate-in" style="max-width: 1200px; margin: 0 auto;">
+
+  <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 50px;">
+    <div>
+      <h2 style="font-size: 2.5rem; margin-bottom: 5px;">Manager Dashboard</h2>
+      <p style="text-transform: uppercase; font-size: 0.75rem; letter-spacing: 2px; color: var(--text-muted);">
+        Master control for reservations & payments
+      </p>
+    </div>
+    <div style="display: flex; gap: 20px;">
+        <div class="stat-badge" style="background: rgba(var(--gold-rgb), 0.1); padding: 10px 20px; border: 1px solid var(--border);">
+            <span style="font-size: 0.65rem; text-transform: uppercase; color: var(--gold);">Admin:</span>
+            <span style="font-weight: 600; font-size: 0.9rem;">{{ session['manager'] }}</span>
+        </div>
+        <a href="/logout" class="primary-btn" style="text-decoration: none; padding-top: 15px; border-color: rgba(207, 102, 121, 0.5); color: #cf6679;">
+            Logout
+        </a>
+    </div>
+  </div>
+
+  {% if bookings %}
+  <div class="glass-card" style="padding: 0; overflow: hidden;">
+    <table>
+      <thead>
+        <tr>
+          <th>Ref ID</th>
+          <th>Customer</th>
+          <th>Date & Slot</th>
+          <th>Guests</th>
+          <th>Tables</th>
+          <th>Payment Status</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for booking in bookings %}
+        <tr>
+          <!-- Indices: email[0],id[1],table[2],guests[3],date[4],time[5],status[6] -->
+          <td style="font-family: monospace; font-size: 0.8rem;">{{ booking[1] }}</td>
+          <td>
+              <div style="font-weight: 500;">{{ booking[0] }}</div>
+              <div style="font-size: 0.7rem; color: var(--text-muted);">Customer Database Record</div>
+          </td>
+          <td>
+              <div style="color: var(--gold-light);">{{ booking[4] }}</div>
+              <div style="font-size: 0.75rem;">{{ booking[5] }}</div>
+          </td>
+          <td>{{ booking[3] }}</td>
+          <td><span style="color: var(--gold);">T-{{ booking[2].replace('|', ', ') }}</span></td>
+          <td>
+            {% if booking[6] == "0" %}
+            <span style="font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; color: #ff9800; background: rgba(255, 152, 0, 0.1); padding: 4px 10px; border: 1px solid rgba(255, 152, 0, 0.2);">
+              Unpaid (Occupied)
+            </span>
+            {% elif booking[6] == "2" %}
+            <span style="font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; color: #4caf88; background: rgba(76, 175, 136, 0.1); padding: 4px 10px; border: 1px solid rgba(76, 175, 136, 0.2);">
+              Paid (Released)
+            </span>
+            {% else %}
+            <span style="font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; color: #cf6679; background: rgba(207, 102, 121, 0.1); padding: 4px 10px; border: 1px solid rgba(207, 102, 121, 0.2);">
+              Cancelled
+            </span>
+            {% endif %}
+          </td>
+          <td>
+            {% if booking[6] == "0" %}
+            <a href="/manager/pay/{{ booking[1] }}" class="secondary-btn" 
+               style="text-decoration: none; padding: 5px 15px; font-size: 0.7rem; font-weight: 600; display: inline-block;">
+              Mark as Paid
+            </a>
+            {% else %}
+            <span style="color: var(--text-muted); font-size: 0.75rem; text-transform: uppercase; opacity: 0.5;">Completed</span>
+            {% endif %}
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% else %}
+  <div class="glass-card" style="text-align: center; padding: 100px 50px;">
+    <h3 style="font-size: 1.5rem;">No reservations found in the system.</h3>
+  </div>
+  {% endif %}
+</div>
+
+<style>
+    .secondary-btn {
+        border: 1px solid var(--gold);
+        color: var(--gold);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        transition: 0.3s;
+    }
+    .secondary-btn:hover {
+        background: var(--gold);
+        color: var(--background);
+    }
+</style>
+{% endblock %}

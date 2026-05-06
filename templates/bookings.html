@@ -1,0 +1,100 @@
+{% extends "base.html" %}
+{% block title %}My Bookings | Ember & Ivory{% endblock %}
+
+{% block content %}
+<div class="animate-in" style="max-width: 1000px; margin: 0 auto;">
+
+  <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 50px;">
+    <div>
+      <h2 style="font-size: 2.5rem; margin-bottom: 5px;">Your Bookings.</h2>
+      <p style="text-transform: uppercase; font-size: 0.75rem; letter-spacing: 2px; color: var(--text-muted);">
+        Managing your reservation history
+      </p>
+    </div>
+    <a href="/reserve" class="primary-btn" style="text-decoration: none; padding-top: 15px;">
+      Book New Table
+    </a>
+  </div>
+
+  {% if bookings %}
+  <div class="glass-card" style="padding: 0; overflow: hidden;">
+    <table>
+      <thead>
+        <tr>
+          <th>Ref ID</th>
+          <th>Date</th>
+          <th>Time Slot</th>
+          <th>Guests</th>
+          <th>Table(s)</th>
+          <th>Status</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for booking in bookings %}
+        <tr>
+          <!-- Indices based on: email,id,table,guests,date,time,status -->
+          <td style="font-family: monospace; font-size: 0.8rem; letter-spacing: 1px;">{{ booking[1] }}</td>
+          <td style="color: var(--gold-light);">{{ booking[4] }}</td>
+          <td>{{ booking[5] }}</td>
+          <td>{{ booking[3] }}</td>
+          <td>Table {{ booking[2].replace('|', ', ') }}</td>
+          <td>
+            {% if booking[6] == "0" %}
+            <span
+              style="font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; color: #4caf88; background: rgba(76, 175, 136, 0.1); padding: 4px 10px; border: 1px solid rgba(76, 175, 136, 0.2);">
+              Confirmed
+            </span>
+            {% else %}
+            <span
+              style="font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; color: #cf6679; background: rgba(207, 102, 121, 0.1); padding: 4px 10px; border: 1px solid rgba(207, 102, 121, 0.2);">
+              Cancelled
+            </span>
+            {% endif %}
+          </td>
+          <td>
+            {% if booking[6] == "0" %}
+            <a href="/cancel/{{ booking[1] }}"
+              onclick="return confirm('Are you sure you want to cancel this reservation?')"
+              style="color: #cf6679; text-decoration: none; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; border: 1px solid rgba(207, 102, 121, 0.3); padding: 5px 12px; transition: 0.3s;"
+              onmouseover="this.style.background='rgba(207, 102, 121, 0.1)'" onmouseout="this.style.background='none'">
+              Cancel
+            </a>
+            {% else %}
+            <span
+              style="color: var(--text-muted); font-size: 0.75rem; text-transform: uppercase; opacity: 0.5;">-</span>
+            {% endif %}
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% else %}
+  <div class="glass-card" style="text-align: center; padding: 100px 50px;">
+    <i data-lucide="calendar-x"
+      style="width: 50px; height: 50px; color: var(--gold); opacity: 0.3; margin-bottom: 20px;"></i>
+    <h3 style="font-size: 1.5rem; margin-bottom: 15px;">No bookings found.</h3>
+    <p style="color: var(--text-muted); margin-bottom: 30px;">
+      Your reservation history is currently empty.
+    </p>
+    <a href="/reserve" class="primary-btn" style="text-decoration: none; display: inline-block;">
+      Make a Reservation
+    </a>
+  </div>
+  {% endif %}
+
+  <div style="margin-top: 60px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 30px;">
+    <div style="padding: 30px; border: 1px solid var(--border); text-align: center;">
+      <i data-lucide="clock" style="width: 24px; color: var(--gold); margin-bottom: 15px;"></i>
+      <h4 style="font-family: 'Playfair Display', serif; margin-bottom: 10px;">Punctuality</h4>
+      <p style="font-size: 0.8rem; color: var(--text-muted);">Please arrive 15 minutes before your time slot.</p>
+    </div>
+    <div style="padding: 30px; border: 1px solid var(--border); text-align: center;">
+      <i data-lucide="circle-alert" style="width: 24px; color: var(--gold); margin-bottom: 15px;"></i>
+      <h4 style="font-family: 'Playfair Display', serif; margin-bottom: 10px;">Cancellations</h4>
+      <p style="font-size: 0.8rem; color: var(--text-muted);">Please cancel at least 24 hours in advance.</p>
+    </div>
+  </div>
+</div>
+{% endblock %}
