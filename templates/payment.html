@@ -16,100 +16,178 @@
     <!-- Summary Column -->
     <div class="glass-card" style="padding: 30px;">
       <h3 style="font-size: 1.5rem; margin-bottom: 25px; border-bottom: 1px solid var(--border); padding-bottom: 15px;">
-        Reservation Details</h3>
+        Reservation Details
+      </h3>
 
       {% if booking %}
       <div style="display: flex; flex-direction: column; gap: 20px;">
+
         <div style="display: flex; justify-content: space-between;">
-          <span style="color: var(--text-muted); font-size: 0.8rem; text-transform: uppercase;">Table No.</span>
+          <span style="color: var(--text-muted); font-size: 0.8rem; text-transform: uppercase;">
+            Table No.
+          </span>
           <span style="color: var(--gold);">Table {{ booking.table }}</span>
         </div>
+
         <div style="display: flex; justify-content: space-between;">
-          <span style="color: var(--text-muted); font-size: 0.8rem; text-transform: uppercase;">No. of People</span>
-          <span>{{ booking.guests }} Guest{% if booking.guests > 1 %}s{% endif %}</span>
+          <span style="color: var(--text-muted); font-size: 0.8rem; text-transform: uppercase;">
+            No. of People
+          </span>
+          <span>
+            {{ booking.guests }} Guest{% if booking.guests > 1 %}s{% endif %}
+          </span>
         </div>
+
         <div style="display: flex; justify-content: space-between;">
-          <span style="color: var(--text-muted); font-size: 0.8rem; text-transform: uppercase;">Booking Time</span>
+          <span style="color: var(--text-muted); font-size: 0.8rem; text-transform: uppercase;">
+            Booking Time
+          </span>
           <span>{{ booking.date }} at {{ booking.slot }}</span>
         </div>
+
       </div>
 
+      <!-- Updated Pricing -->
       <div style="margin-top: 40px; border-top: 1px solid var(--border); padding-top: 25px;">
-        <div style="display: flex; justify-content: space-between; margin-bottom: 15px; font-size: 0.9rem;">
-          <span style="color: var(--text-muted);">Base Reservation</span>
-          <span>₹{{ booking.guests * 400 }}</span>
+
+        <div style="display: flex; justify-content: space-between; margin-bottom: 20px; font-size: 1rem;">
+          <span style="color: var(--text-muted);">
+            Reservation Fee (₹30 × {{ booking.guests }})
+          </span>
+
+          <span>₹{{ booking.guests * 30 }}</span>
         </div>
-        <div style="display: flex; justify-content: space-between; margin-bottom: 15px; font-size: 0.9rem;">
-          <span style="color: var(--text-muted);">Concierge Fee</span>
-          <span>₹{{ booking.guests * 100 }}</span>
-        </div>
+
         <div
           style="display: flex; justify-content: space-between; margin-top: 15px; font-size: 1.4rem; color: var(--gold-light);">
-          <span style="font-family: 'Playfair Display', serif;">Grand Total</span>
-          <span>₹{{ booking.guests * 500 }}</span>
+
+          <span style="font-family: 'Playfair Display', serif;">
+            Grand Total
+          </span>
+
+          <span>₹{{ booking.guests * 30 }}</span>
         </div>
+
       </div>
       {% endif %}
     </div>
 
     <!-- Payment Column -->
     <div class="glass-card" style="padding: 40px;">
+
       {% if success %}
+
       <div style="text-align: center; padding: 20px 0;">
-        <i data-lucide="check-circle" style="width: 60px; height: 60px; color: var(--gold); margin-bottom: 20px;"></i>
-        <h3 style="font-size: 1.8rem; margin-bottom: 15px;">Payment Successful.</h3>
+
+        <i data-lucide="check-circle"
+          style="width: 60px; height: 60px; color: var(--gold); margin-bottom: 20px;"></i>
+
+        <h3 style="font-size: 1.8rem; margin-bottom: 15px;">
+          Payment Successful.
+        </h3>
+
         <p style="color: var(--text-muted); line-height: 1.6; margin-bottom: 30px;">
           {{ success }}<br>
           A confirmation has been sent to your email address.
         </p>
+
         {% if booking_id %}
-        <div style="background: rgba(0,0,0,0.3); padding: 15px; border: 1px dashed var(--border); margin-bottom: 30px;">
+        <div
+          style="background: rgba(0,0,0,0.3); padding: 15px; border: 1px dashed var(--border); margin-bottom: 30px;">
+
           <span
-            style="font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted);">Reference
-            ID</span><br>
-          <span style="font-family: monospace; color: var(--gold-light); font-size: 1.2rem;">{{ booking_id }}</span>
+            style="font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted);">
+            Reference ID
+          </span><br>
+
+          <span style="font-family: monospace; color: var(--gold-light); font-size: 1.2rem;">
+            {{ booking_id }}
+          </span>
+
         </div>
         {% endif %}
-        <a href="/bookings" class="primary-btn" style="text-decoration: none; display: inline-block;">
+
+        <a href="/bookings" class="primary-btn"
+          style="text-decoration: none; display: inline-block;">
           View Reservations
         </a>
+
       </div>
+
       {% else %}
-      <h3 style="font-size: 1.5rem; margin-bottom: 30px;">Payment Method</h3>
+
+      <h3 style="font-size: 1.5rem; margin-bottom: 30px;">
+        Payment Method
+      </h3>
 
       <form method="POST" id="paymentForm">
+
         <div style="display: flex; flex-direction: column; gap: 15px; margin-bottom: 30px;">
+
+          <!-- Card -->
           <label class="method-label"
             style="display: flex; align-items: center; gap: 15px; padding: 15px; border: 1px solid var(--border); cursor: pointer; transition: 0.3s;">
-            <input type="radio" name="method" value="card" required style="accent-color: var(--gold);">
-            <span style="font-size: 0.9rem;">Credit or Debit Card</span>
+
+            <input type="radio" name="method" value="card" required
+              style="accent-color: var(--gold);">
+
+            <span style="font-size: 0.9rem;">
+              Credit or Debit Card
+            </span>
+
           </label>
+
           <div id="card-details"
             style="display:none; padding: 20px; background: rgba(0,0,0,0.2); border: 1px solid var(--border); border-top: none;">
-            <input type="text" class="form-input" placeholder="Number on Card" style="margin-bottom: 20px;">
+
+            <input type="text" class="form-input"
+              placeholder="Number on Card"
+              style="margin-bottom: 20px;">
+
             <div style="display: flex; gap: 20px;">
               <input type="text" class="form-input" placeholder="MM / YY">
               <input type="password" class="form-input" placeholder="Security Code">
             </div>
+
           </div>
 
+          <!-- UPI -->
           <label class="method-label"
             style="display: flex; align-items: center; gap: 15px; padding: 15px; border: 1px solid var(--border); cursor: pointer; transition: 0.3s;">
-            <input type="radio" name="method" value="upi" style="accent-color: var(--gold);">
-            <span style="font-size: 0.9rem;">UPI Transfer</span>
+
+            <input type="radio" name="method" value="upi"
+              style="accent-color: var(--gold);">
+
+            <span style="font-size: 0.9rem;">
+              UPI Transfer
+            </span>
+
           </label>
+
           <div id="upi-details"
             style="display:none; padding: 20px; background: rgba(0,0,0,0.2); border: 1px solid var(--border); border-top: none;">
-            <input type="text" class="form-input" placeholder="Enter VPA (e.g. user@bank)">
+
+            <input type="text" class="form-input"
+              placeholder="Enter VPA (e.g. user@bank)">
+
           </div>
 
+          <!-- Net Banking -->
           <label class="method-label"
             style="display: flex; align-items: center; gap: 15px; padding: 15px; border: 1px solid var(--border); cursor: pointer; transition: 0.3s;">
-            <input type="radio" name="method" value="netbanking" style="accent-color: var(--gold);">
-            <span style="font-size: 0.9rem;">Net Banking</span>
+
+            <input type="radio" name="method" value="netbanking"
+              style="accent-color: var(--gold);">
+
+            <span style="font-size: 0.9rem;">
+              Net Banking
+            </span>
+
           </label>
+
           <div id="netbanking-details"
             style="display:none; padding: 20px; background: rgba(0,0,0,0.2); border: 1px solid var(--border); border-top: none;">
+
             <select class="form-input" style="background: var(--surface);">
               <option>Choose your institution</option>
               <option>HDFC Bank</option>
@@ -117,16 +195,27 @@
               <option>SBI</option>
               <option>Axis Bank</option>
             </select>
+
           </div>
+
         </div>
 
         <button type="submit" class="primary-btn" style="width: 100%;">
           Pay Now
         </button>
-        <p style="text-align: center; margin-top: 20px; font-size: 0.7rem; color: var(--text-muted); opacity: 0.6;">
-          <i data-lucide="lock" style="width: 10px; vertical-align: middle;"></i> 256-bit Secure Encryption
+
+        <p
+          style="text-align: center; margin-top: 20px; font-size: 0.7rem; color: var(--text-muted); opacity: 0.6;">
+
+          <i data-lucide="lock"
+            style="width: 10px; vertical-align: middle;"></i>
+
+          256-bit Secure Encryption
+
         </p>
+
       </form>
+
       {% endif %}
     </div>
   </div>
@@ -134,26 +223,39 @@
 
 <script>
   document.querySelectorAll('input[name="method"]').forEach(method => {
+
     method.addEventListener('change', function () {
-      // Reset all
+
+      // Hide all sections
       document.getElementById("card-details").style.display = "none";
       document.getElementById("upi-details").style.display = "none";
       document.getElementById("netbanking-details").style.display = "none";
-      document.querySelectorAll('.method-label').forEach(l => l.style.borderColor = 'var(--border)');
 
-      // Show active
+      // Reset borders
+      document.querySelectorAll('.method-label')
+        .forEach(label => label.style.borderColor = 'var(--border)');
+
+      // Show selected section
       const details = document.getElementById(this.value + "-details");
+
       if (details) {
         details.style.display = "block";
         this.closest('.method-label').style.borderColor = 'var(--gold)';
       }
+
     });
+
   });
 
   document.getElementById("paymentForm")?.addEventListener("submit", function () {
+
     const btn = this.querySelector('.primary-btn');
+
     btn.disabled = true;
-    btn.innerHTML = '<span style="display: flex; align-items: center; justify-content: center; gap: 10px;">Processing...</span>';
+
+    btn.innerHTML =
+      '<span style="display:flex; align-items:center; justify-content:center; gap:10px;">Processing...</span>';
+
   });
 </script>
 
@@ -163,4 +265,5 @@
     border-color: rgba(212, 175, 55, 0.5);
   }
 </style>
+
 {% endblock %}

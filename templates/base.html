@@ -14,14 +14,18 @@
 
     <style>
         :root {
-            --gold: #d4af37;
-            --gold-light: #f1d592;
-            --bg: #0a0a0a;
-            --surface: #121212;
-            --border: rgba(212, 175, 55, 0.2);
-            --text-main: #e0e0e0;
-            --text-muted: #a0a0a0;
+            --gold: #b88a44;
+            --gold-light: #b88a44;
+            --bg: #0b1a3b;
+            --surface: rgba(10, 30, 70, 0.6);
+            --border: rgba(184, 138, 68, 0.2);
+            --text-main: #FFFFFF;
+            --text-muted: rgba(255, 255, 255, 0.7);
             --shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+        }
+
+        html {
+            font-size: 19px;
         }
 
         * {
@@ -31,11 +35,14 @@
         }
 
         body {
-            background-color: var(--bg);
+            background: linear-gradient(180deg, #0b1a3b 0%, #0f2a5e 25%, #145a8a 55%, #1a7a9a 75%, #2098a8 100%);
+            background-attachment: fixed;
             color: var(--text-main);
             font-family: 'Inter', sans-serif;
+            font-weight: 500;
             line-height: 1.6;
             overflow-x: hidden;
+            min-height: 100vh;
         }
 
         h1,
@@ -44,7 +51,7 @@
         .serif {
             font-family: 'Playfair Display', serif;
             color: var(--gold-light);
-            font-weight: 400;
+            font-weight: 600;
         }
 
         /* NAVIGATION - MINIMAL & ELEGANT */
@@ -58,7 +65,7 @@
             align-items: center;
             padding: 0 5%;
             z-index: 1000;
-            background: rgba(10, 10, 10, 0.8);
+            background: rgba(11, 26, 59, 0.85);
             backdrop-filter: blur(10px);
             border-bottom: 1px solid var(--border);
         }
@@ -89,7 +96,7 @@
             font-size: 0.85rem;
             text-transform: uppercase;
             letter-spacing: 1.5px;
-            font-weight: 500;
+            font-weight: 700;
             transition: color 0.3s ease;
             position: relative;
         }
@@ -152,6 +159,7 @@
             color: var(--gold);
             padding: 12px 30px;
             font-family: 'Inter', sans-serif;
+            font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 2px;
             font-size: 0.8rem;
@@ -276,6 +284,7 @@
             <a href="/">Home</a>
             <a href="/reserve">Reserve</a>
             <a href="/bookings">Bookings</a>
+            <a href="/manager/login">Manager</a>
             <a href="/logout">Logout</a>
         </nav>
     </header>
@@ -288,11 +297,7 @@
         <p style="font-size: 0.75rem; color: var(--text-muted); letter-spacing: 1px; text-transform: uppercase;">
             © 2026 Ember & Ivory Luxury Dining. All Rights Reserved.
         </p>
-        <div style="margin-top: 15px;">
-            <a href="/manager/login" style="color: var(--gold); text-decoration: none; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 2px; opacity: 0.6; transition: 0.3s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.6'">
-                Manager Access
-            </a>
-        </div>
+
     </footer>
 
     <script>
